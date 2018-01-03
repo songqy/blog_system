@@ -1,0 +1,208 @@
+body
+{
+    background-color: #babcbd !important;
+}
+
+#header
+{
+    position: relative;
+
+    width: 100%;
+    height: 4rem;
+    margin: 0 0;
+    padding: 1rem 0;
+
+    background: -webkit-gradient(linear,0 0,0 100%,from(#2777ec),to(#6ac1fc));
+    background: -moz-linear-gradient(#2777ec, #6ac1fc);
+    background:   -o-linear-gradient(#2777ec, #6ac1fc);
+    background:      linear-gradient(top center, #2777ec, #6ac1fc);
+    background-color: #aaeff3;
+}
+
+div.container
+{
+    width: 95%;
+    margin: 0 0;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+}
+
+#header a:hover,
+#posts a:hover
+{
+    text-decoration: none;
+
+    color: inherit;
+}
+
+#header a,
+#posts a
+{
+    color: inherit;
+}
+
+#posts a
+{
+    display: block;
+}
+
+
+#header > div:nth-child(1)
+{
+    font-size: 2.3rem;
+
+    position: absolute;
+    left: 2rem;
+
+    display: inline-block;
+}
+
+#header > div:nth-child(1):hover
+{
+    cursor: pointer;
+}
+
+#header > div:nth-child(2)
+{
+    font-size: 2rem;
+
+    position: absolute;
+    right: 8rem;
+
+    display: inline-block;
+}
+
+#posts
+{
+    width: 65%;
+    margin: 0 auto;
+    margin-top: 2rem;
+    margin-right: auto;
+    margin-left: 4rem;
+    padding: 2rem 4rem;
+
+    background-color: #fff;
+}
+
+.post_title
+{
+    font-family: cursive;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.post_list
+{
+    margin-top: 3px;
+    margin-bottom: 10rem;
+}
+
+.post
+{
+    height: 6rem;
+    margin-bottom: 15px;
+
+    cursor: pointer;
+
+    border-bottom: 1px solid #b0b9b9;
+}
+
+.post .title:hover
+{
+    color: #e81616;
+}
+
+.post .user_img
+{
+    display: inline-block;
+    float: left;
+
+    width: 6rem;
+    height: 6rem;
+    margin-right: 2rem;
+
+    border-radius: 50%;
+    border: 1px solid #d3cfcf;
+}
+
+
+.post > div
+{
+    float: left;
+}
+
+.post > div:after
+{
+    clear: both;
+}
+
+.title
+{
+    font-size: 2.5rem;
+    font-weight: 600;
+
+    margin-right: 15px;
+}
+
+
+.post_info
+{
+    width: 100%;
+}
+
+.post_info > span
+{
+    display: inline-block;
+
+    margin-right: 25px;
+}
+
+
+
+
+
+.container #frame
+{
+    position: fixed;
+    top: 10rem;
+    /*right: 10rem;*/
+    left: 70%;
+
+    margin: 0 0;
+
+    background-color: #456f52;
+}
+
+.empty
+{
+    font-size: 4rem;
+
+    text-align: center;
+}
+
+@media screen and (max-width: 460px)
+{
+    div.container
+    {
+        width: 98%;
+        margin: .6rem auto;
+        padding: 0 .3rem;
+    }
+    .container #frame
+    {
+        display: none;
+    }
+    #posts
+    {
+        width: 96%;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+    #header > div:nth-child(2)
+    {
+        right: 3rem;
+    }
+    .post{
+        height: 10rem;
+    }
+}

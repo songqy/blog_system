@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <%=post.title%>
+    </title>
+    <meta name="keywords" content="<% tags.forEach(function(tag){ %><%=tag.tag_name%><%=','%><%})%>">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="/css/login_register.css" />
+    <link rel="stylesheet" type="text/css" href="/css/wangEditor.min.css" />
+    <link rel="stylesheet" type="text/css" href="/css/post_detail.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+</head>
+
+<body>
+    <div id="header">
+        <div><a href="/">BLOG</a></div>
+        <div>
+            <% if(user_name == ""){ %>
+                <span class="alert-open">登录</span>
+                <span class="alert-open">注册</span>
+                <%} else{%>
+                    <img class="head_img" src="<%=head_img_url%>" alt="">
+                    <span class="user_name" v-on:click="click_name"><%=user_name%></span>
+                    <a href="/posts_list">我的文章</a>
+                    <span id="set_up" v-show="set_up" v-on:click="set_up_click">设置</span>
+                    <span id="logout" v-show="logout" v-on:click="logout_click">退出</span>
+                    <%}%>
+        </div>
+        <!-- contact-form -->
+        <div id="login_register" class="message warning" style="display: none;">
+            <div class="inset">
+                <div class="login-head">
+                    <h1>登录&注册</h1>
+                    <div class="alert-close"> </div>
+                </div>
+                <div class="form">
+                    <li>
+                        <input type="text" class="text" value="" placeholder="用户名" v-model="user_name">
+                        <!-- <a href="#" class=" icon user"></a> -->
+                    </li>
+                    <div class="clear"> </div>
+                    <li>
+                        <input type="password" value="" placeholder="密码" v-model="user_password">
+                        <!-- <a href="#" class="icon lock"></a> -->
+                    </li>
+                    <div class="clear"> </div>
+                    <div class="submit">
+                        <input type="submit" v-on:click="login" value="登录">
+                        <input type="submit" v-on:click="register" value="注册" style="position: relative;left:55px">
+                        <div class="clear"> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div id="post">
+            <div id="main_post">
+                <div class="post_detail">
+                    <div class="user_img">
+                        <% if(post.head_img_url == "" || post.head_img_url == undefined || post.head_img_url == null) {%>
+                            <img src="/img/head_img.jpg" alt="">
+                        <% } else { %>
+                        <img src="<%=post.head_img_url%>" alt="">
+                        <% } %>
+                    </div>
+                    <div class="author">
+                        <a href="/posts_user?target_user=<%=post.user_name%>">
+                            <%=post.user_name%>
+                        </a>
+                    </div>
+                    <div class="time">
+                        <span><%=post.date%></span>
+                    </div>
+                    
+                </div>
+                <div class="post_title">
+                    <%=post.title%>
+                 </div>
+                 <div id="tags">
+                    <span class="tag" style="margin-right:0">标签：</span>
+                    <% tags.forEach(function(tag){ %>
+                        <div class="tag">
+                            <span><%=tag.tag_name%></span>
+                        </div>
+                    <%})%>
+                </div>
+                <div class="content">
+                    <%-post.content%>
+                </div>
+            </div>
+            <div id="comments">
+                <div class="comment_head">
+                    <span>评论：{{comments.length}} 条</span>
+                </div>
+                <div v-for="comment in comments" class="comment">
+                    <div v-text="comment.user_name" class="comment_auther"></div>
+                    <div v-html="comment.content" class="comment_content"></div>
+                    <div v-text="comment.time" class="comment_time"></div>
+                </div>
+                <div id="user">
+                    <!-- <div v-if="user_name == '' ">
+                        <span>用户名：</span>
+                        <input type="text" v-model="new_user_name">
+                        <span>密码：</span>
+                        <input type="password" v-model="new_user_password">
+                        <button type="button" v-on:click="login" class="btn btn-primary">登录</button>
+                        <button type="button" v-on:click="register" class="btn btn-info">注册</button>
+                    </div>
+                    <div v-else class="user_name">
+                        <span v-text="user_name"></span>
+                    </div> -->
+                    <div class="comment_text">
+                        <!-- <textarea name="comment" v-model="new_comment"></textarea> -->
+                        <textarea id="text" class="form-control" v-model="new_comment" style="resize:none;height:300px;">
+                        </textarea>
+                        <button type="" v-on:click="comment" class="btn btn-success">评论</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript">
+        $(document).ready(function(c) {
+            // $('.message').hide();
+            $('.alert-close').on('click', function(c) {
+                $('.message').fadeOut('slow', function(c) {
+                    // $('.message').remove();
+                });
+            });
+            $('.alert-open').on('click', function(c) {
+                $('.message').fadeIn('slow', function(c) {
+                    // $('.message').remove();
+                });
+            });
+        });
+        $("#logout").width($(".user_name").width());
+        $("#set_up").width($(".user_name").width());
+        </script>
+        <script type="text/javascript" src="/js/wangEditor.min.js"></script>
+        <script type="text/javascript" src="/js/common.js"></script>
+        <script type="text/javascript" src="/js/post_detail.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,188 @@
+#header
+{
+    position: relative;
+
+    width: 100%;
+    height: 4rem;
+    margin: 0 0;
+    padding: 1rem 0;
+
+    background: -webkit-gradient(linear,0 0,0 100%,from(#2777ec),to(#6ac1fc));
+    background: -moz-linear-gradient(#2777ec, #6ac1fc);
+    background:   -o-linear-gradient(#2777ec, #6ac1fc);
+    background:      linear-gradient(top center, #2777ec, #6ac1fc);
+    background-color: #aaeff3;
+}
+
+
+#header a:hover
+{
+    text-decoration: none;
+
+    color: inherit;
+}
+
+#header a
+{
+    color: inherit;
+}
+
+
+#header > div:nth-child(1)
+{
+    font-size: 2.3rem;
+
+    position: absolute;
+    left: 2rem;
+
+    display: inline-block;
+}
+
+#header > div:nth-child(1):hover
+{
+    cursor: pointer;
+}
+
+#header > div:nth-child(2)
+{
+    font-size: 2rem;
+
+    position: absolute;
+    right: 8rem;
+
+    display: inline-block;
+}
+
+
+
+#set
+{
+    width: 100%;
+}
+
+#modify_password .modify_content
+{
+    margin-top: 40px;
+    width: 400px;
+}
+
+.modify_content label
+{
+    width: 150px;
+    text-align: right;
+}
+
+#modify_password,
+#img_upload
+{
+    float: left;
+
+    box-sizing: border-box;
+    height: 45rem;
+    margin-top: 4rem;
+
+    border: 2px solid #333;
+}
+
+#modify_password
+{
+    width: 50%;
+}
+
+#img_upload
+{
+    width: 50%;
+}
+
+#img_upload:after
+{
+    clear: both;
+}
+
+
+#modify_password div
+{
+    margin: .5rem auto;
+
+    white-space: pre;
+}
+
+
+.title
+{
+    font-size: 3rem;
+
+    margin: .2rem auto;
+
+    text-align: center;
+}
+
+.img_content
+{
+    margin: .5rem auto;
+    padding: 1rem 1rem;
+    position: relative;
+}
+
+#head_img
+{
+    position: absolute;
+    top: 1rem;
+
+    display: block;
+
+    width: 12rem;
+    height: 12rem;
+    margin-left: -6rem;
+
+    opacity: .01;
+    left:50%;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.img
+{
+    display: block;
+
+    width: 12rem;
+    height: 12rem;
+    margin: .5rem auto;
+
+    border: 1px solid #333;
+    border-radius: 50%;
+}
+
+.btn_content
+{
+    margin: 2rem auto;
+    padding: 1rem 1rem;
+}
+
+input[type='file']
+{
+    display: block;
+
+    margin: .2rem auto;
+
+    text-align: center;
+}
+
+#modify_password .btn
+{
+    font-size: 3rem;
+
+    display: block;
+
+    width: 15rem;
+    margin: 1rem auto;
+}
+
+.btn_content .btn
+{
+    font-size: 2.5rem;
+
+    display: block;
+
+    margin: 1rem auto;
+}

@@ -1,0 +1,99 @@
+#header
+{
+    font-size: 3rem;
+
+    width: 15rem;
+    margin: 1rem auto;
+
+    text-align: center;
+}
+
+#progress
+{
+    height: 8px;
+}
+
+.title
+{
+    font-family: fantasy;
+    font-size: 25px;
+}
+
+#tags
+{
+    position: relative;
+
+    margin: 5px 1px;
+    padding: 1px 5px;
+}
+
+
+#down_btn
+{
+    position: absolute;
+    top: 5px;
+    right: 10px;
+
+    width: 20px;
+    height: 20px;
+}
+
+#down_btn > img
+{
+    width: 20px;
+    height: 20px;
+}
+
+.tag > span
+{
+    line-height: 30px;
+
+    display: inline-block;
+
+    height: 38px;
+    margin: 4px 3px;
+    padding: 4px 8px;
+
+    cursor: pointer;
+
+    border: 2px dotted #ea1212;
+    border-radius: 5px;
+}
+
+.tag > span:hover
+{
+    background-color: #efe680;
+}
+
+
+.no_tag.tag > span
+{
+    cursor: default;
+
+    opacity: .7;
+}
+
+#tag_lists
+{
+    margin-top: 20px;
+    padding: 5px 6px;
+
+    border: 1px solid #948f8f;
+    border-radius: 8px;
+}
+
+.add_tag
+{
+    display: block;
+    clear: both;
+}
+
+#sub_btn
+{
+    font-size: 23px;
+    line-height: 30px;
+
+    width: 120px;
+    height: 52px;
+    margin: 5px 43%;
+}

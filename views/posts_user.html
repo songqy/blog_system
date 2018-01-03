@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="/css/home.css" />
+    <link rel="stylesheet" type="text/css" href="/css/login_register.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+</head>
+
+<body>
+    <div id="header">
+        <div><a href="/">BLOG</a></div>
+        <div>
+            <% if(user_name == ""){ %>
+            <span class="alert-open">登录</span>
+            <span class="alert-open">注册</span>
+            <%} else{%>
+            <img class="head_img" src="<%=head_img_url%>" alt="">
+            <span class="user_name" v-on:click="click_name"><%=user_name%></span>
+            <a href="/posts_list">我的文章</a>
+            <span id="set_up" v-show="set_up" v-on:click="set_up_click">设置</span>
+            <span id="logout" v-show="logout" v-on:click="logout_click">退出</span>
+            <%}%>
+        </div>
+        <!-- contact-form -->
+        <div id="login_register" class="message warning" style="display: none;">
+            <div class="inset">
+                <div class="login-head">
+                    <h1>登录&注册</h1>
+                    <div class="alert-close"> </div>
+                </div>
+                <div class="form">
+                    <li>
+                        <input type="text" class="text" value="" placeholder="用户名" v-model="user_name">
+                    </li>
+                    <div class="clear"> </div>
+                    <li>
+                        <input type="password" value="" placeholder="密码" v-model="user_password">
+                    </li>
+                    <div class="clear"> </div>
+                    <div class="submit">
+                        <input type="submit" v-on:click="login" value="登录">
+                        <input type="submit" v-on:click="register" value="注册" style="position: relative;left:55px">
+                        <div class="clear"> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div id="posts">
+            <div>
+                <input type="hidden" name="target_user" value="<%=target_user%>">
+                <span class="post_title" style=""><%=target_user%>文章列表</span>
+            </div>
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li class="prev">
+                        <a href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <% for(var i = 1; i <= posts_num / (pageSize + 1) + 1; ++i){ %>
+                        <% if(i == page){ %>
+                        <li class="active"><span><%=i%></span></li>
+                        <% } else{ %>
+                        <% var url = "/posts_user.html?target_user=" + target_user + "&page=" + i; %>
+                        <li><a href=<%=url%> ><%=i%></a></li>
+                        <% } %>
+                    <% } %>
+                    <li class="next">
+                        <a href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="post_list">
+                <% posts.forEach(function(post){ %>
+                <div class="post">
+                    <a href="posts_user?target_user=<%=post.user_name%>">
+                        <% if(post.head_img_url == "" || post.head_img_url == undefined || post.head_img_url == null) {%>
+                        <img  class="user_img" src="/img/head_img.jpg" alt="">
+                        <% } else { %>
+                        <img class="user_img" src="<%=post.head_img_url%>" alt="">
+                        <% } %>
+                    </a>
+                    <input type="hidden" name="post_id" value="<%=post._id%>">
+                    <a href="/post_detail?id=<%=post._id%>">
+                        <div class="title"><%=post.title%></div>
+                        <div class="post_info">
+                            <span>（评论：<%=post.comment_num%>）</span>
+                            <span><%=post.date%></span>
+                         </div>
+                    </a>
+                        
+                </div>
+                <%})%>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(c) {
+        // $('.message').hide();
+        $('.alert-close').on('click', function(c) {
+            $('.message').fadeOut('slow', function(c) {
+                // $('.message').remove();
+            });
+        });
+        $('.alert-open').on('click', function(c) {
+            $('.message').fadeIn('slow', function(c) {
+                // $('.message').remove();
+            });
+        });
+
+        $(".prev").on("click",function(){
+            var index = $(".pagination .active").children();
+            index = Number($(index).html());
+            if(index != 1){
+                location.href = "/posts_user.html?target_user=" + $("input[name='target_user']").val() + "&page=" + (index - 1);
+            }
+        })
+
+        $(".next").on("click",function(){
+            var index = $(".pagination .active").children();
+            index = Number($(index).html());
+            var lis = $(".pagination li");
+            if(index != lis.length - 2){
+                location.href = "/posts_user.html?target_user=" + $("input[name='target_user']").val() + "&page=" + (index + 1);
+            }
+        })
+    });
+    $("#logout").width($(".user_name").width());
+    $("#set_up").width($(".user_name").width());
+    </script>
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/home.js"></script>
+</body>
+
+</html>

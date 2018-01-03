@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>后台编辑</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="/css/posts_list.css" />
+    <link rel="stylesheet" type="text/css" href="/css/login_register.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+</head>
+
+<body>
+    <div id="header">
+        <div><a href="/">BLOG</a></div>
+        <div>
+            <% if(user_name == ""){ %>
+            <span class="alert-open">登录</span>
+            <span class="alert-open">注册</span>
+            <%} else{%>
+            <img class="head_img" src="<%=head_img_url%>" alt="">
+            <span class="user_name" v-on:click="click_name"><%=user_name%></span>
+            <a href="/posts_list">我的文章</a>
+            <span id="set_up" v-show="set_up" v-on:click="set_up_click">设置</span>
+            <span id="logout" v-show="logout" v-on:click="logout_click">退出</span>
+            <%}%>
+        </div>
+
+        <!-- contact-form -->
+        <div id="login_register" class="message warning" style="display: none;">
+            <div class="inset">
+                <div class="login-head">
+                    <h1>登录&注册</h1>
+                    <div class="alert-close"> </div>
+                </div>
+                <div class="form">
+                    <li>
+                        <input type="text" class="text" value=""  placeholder="用户名" v-model="user_name">
+                    </li>
+                    <div class="clear"> </div>
+                    <li>
+                        <input type="password" value="" placeholder="密码" v-model="user_password">
+                    </li>
+                    <div class="clear"> </div>
+                    <div class="submit">
+                        <input type="submit" v-on:click="login" value="登录">
+                        <input type="submit" v-on:click="register" value="注册" style="position: relative;left:55px">
+                        
+                        <div class="clear"> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="list_title">文章列表</div>
+    <button id="add_post_link" class="btn btn-default">添加文章</button>
+    <div class="container">
+        <div id="list">
+
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li class="prev">
+                        <a href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <% for(var i = 1; i <= posts_num / (pageSize + 1) + 1; ++i){ %>
+                        <% if(i == 1){ %>
+                        <li class="active"><span v-on:click="get_posts_by_page(<%=i%>)"><%=i%></span></li>
+                        <% } else{ %>
+                        <li><span v-on:click="get_posts_by_page(<%=i%>)"><%=i%></span></li>
+                        <% } %>
+                    <% } %>
+                    <li class="next">
+                        <a href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div v-for="item in items" class="panel panel-default" >
+                <div class="panel-heading">
+                    <span class="title" v-text="item.title"  v-on:click="post_detail(item._id)"></span>
+                    <div v-for="tag in item.tags" class="tag">
+                        <span v-text="tag.tag_name"></span>
+                    </div>
+                </div>
+                <!-- <div v-html="item.content" class="content panel-body"></div> -->
+                
+                <div class="panel-footer">
+                    <button v-on:click="modify_post(item._id)" class="btn btn-success">修改</button>
+                    <button v-on:click="delete_post(item._id)" class="btn btn-warning">删除</button>
+                    <div class="time">
+                        <span v-text="item.time"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function(){
+            $("#logout").width($(".user_name").width());
+            $("#set_up").width($(".user_name").width());
+            $("#add_post_link").on("click",function(){
+                location.href = "/add.html";
+            });
+
+            $(".pagination").on("click",function(e){
+                var t = $(e.target).parents("li");
+                if($(t).hasClass("prev")){
+                    var index = $(".pagination .active").html();
+                    index = Number($(index).html());
+                    if(index != 1){
+                        var lis = $(".pagination li");
+                        var li = $(lis[index-1]).children();
+                        $(li).click();
+                    }
+                    return ;
+                } 
+                if($(t).hasClass("next")){
+                    var index = $(".pagination .active").html();
+                    index = Number($(index).html());
+                    var lis = $(".pagination li");
+                    if(index != lis.length - 2){
+                        var li = $(lis[index+1]).children();
+                        $(li).click();
+                    }
+                    return ;
+                }
+                $(".pagination .active").removeClass("active");
+
+                $(t).addClass("active")
+
+            })
+        });
+        
+    </script>
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/posts_list.js"></script>
+</body>
+
+</html>
